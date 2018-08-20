@@ -72,6 +72,20 @@ print(Y)
 from sklearn.cross_validation import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.2, random_state = 0)
 
+#Feature Scaling - you can use standardisation and normalization
+from sklearn.preprocessing import StandardScaler
+sc_X = StandardScaler()
+
+#We shouldnt be scaling the dummy variables
+X_train[:,3:5] = sc_X.fit_transform(X_train[:,3:5])
+X_test[:,3:5] = sc_X.transform(X_test[:,3:5])
+
+"""
+for this dataset we dont need to scale the output vector since its a classification problem
+Purchased - yes and no
+In case of regression where the outputs can also vary largely in range we need to scale 
+"""
+
 
 
 
