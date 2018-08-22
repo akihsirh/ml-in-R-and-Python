@@ -1,4 +1,4 @@
-# Multiple Linear Regression
+# Data Preprocessing Template
 
 # Importing the libraries
 import numpy as np
@@ -11,31 +11,29 @@ X = dataset.iloc[:, :-1].values
 y = dataset.iloc[:, 4].values
 
 # Encoding categorical data
+# Encoding the Independent Variable
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-labelencoder = LabelEncoder()
-X[:, 3] = labelencoder.fit_transform(X[:, 3])
+labelencoder_X = LabelEncoder()
+X[:, 3] = labelencoder_X.fit_transform(X[:, 3])
 onehotencoder = OneHotEncoder(categorical_features = [3])
 X = onehotencoder.fit_transform(X).toarray()
 
-# Avoiding the Dummy Variable Trap
-X = X[:, 1:]
+#Avoiding the dummy variable trap
+X = X[:,1:]
+"""
+Although the linear regression model takes care of dummy variables we should carry out this 
+step anyways. Also since the regression library takes care of feature scaling we dont need to carry
+out that either
+"""
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
-# Feature Scaling
-"""from sklearn.preprocessing import StandardScaler
-sc_X = StandardScaler()
-X_train = sc_X.fit_transform(X_train)
-X_test = sc_X.transform(X_test)
-sc_y = StandardScaler()
-y_train = sc_y.fit_transform(y_train)"""
-
-# Fitting Multiple Linear Regression to the Training set
+#Fit multiple linear regression model to the training set
 from sklearn.linear_model import LinearRegression
 regressor = LinearRegression()
 regressor.fit(X_train, y_train)
 
-# Predicting the Test set results
+#Test the regressor on the test data
 y_pred = regressor.predict(X_test)
