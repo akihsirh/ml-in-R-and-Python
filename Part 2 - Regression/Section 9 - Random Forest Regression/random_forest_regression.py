@@ -20,7 +20,7 @@ y = dataset.iloc[:, 2].values
 
 #Build the regressor
 from sklearn.ensemble import RandomForestRegressor
-regressor = RandomForestRegressor(n_estimators= 300, random_state= 0)
+ regressor = RandomForestRegressor(n_estimators= 300, random_state= 0)
 regressor.fit(X,y)
 
 
